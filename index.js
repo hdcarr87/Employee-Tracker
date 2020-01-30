@@ -1,6 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var cTable = require("console.table")
+require("console.table");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -65,13 +65,16 @@ function start() {
 
 function addDepartment() {
     inquirer.prompt({
-        name: "department",
+        name: "name",
         type: "input",
         message: "What department do you want to add?"
     })
     .then(function(answer) {
-        var query = "INSERT INTO department (name), VALUES (answer) ";
-        connection.query(query, { department: answer.name },
-                
-            });
+        var query = "INSERT INTO department SET ?";
+        var result = connection.query(query, answer);
+        
+        //console.table(result);
+        //console.log(answer.department);
     });
+            
+};
